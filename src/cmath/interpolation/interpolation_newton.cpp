@@ -21,13 +21,9 @@ void Interpolation_Newton::update(const std::vector<double>& f) {
 }
 
 [[nodiscard]] double Interpolation_Newton::operator()(const double x) const {
-    double res = res_up[0];
-    for (std::size_t i = 1; i < len_arr; ++i) {
-        double p = res_up[i];
-        for (std::size_t j = 0; j < i; ++j) {
-            p *= x - x_[j];
-        }
-        res += p;
+    double res = res_up[len_arr - 1];
+    for (std::size_t i = len_arr - 1; i > 0; --i) {
+        res = res * (x - x_[i - 1]) + res_up[i - 1];
     }
     return res;
 }
