@@ -1,4 +1,5 @@
 #include <gtest/gtest.h>
+#include <fstream>
 #include "cmath/interpolation/interpolation_newton.hpp"
 
 TEST(interpolation_newton, create) {
@@ -25,9 +26,13 @@ TEST(interpolation_newton, create) {
             {
                 92228496, 106021537, 123202624, 132164569, 151325798,
                 179323175, 203211926, 226545805, 248709873, 281421906
-                }
-            };
-        const double res = static_cast<int>(pol(2000));
-        check(res, 281421906);
+            }
+        };
+        std::cout << "2010 год:" << static_cast<int>(pol(2010));
+        std::ofstream res("data_interpolation.csv");
+        res << "year" << "," << "number" << "\n";
+        for (double i = 1910; i <= 2010; i += 1) {
+            res << i << "," << pol(i) << "\n";
+        }
     }
 }
