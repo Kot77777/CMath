@@ -21,6 +21,10 @@ TEST(interpolation_newton, create) {
         check(pol(2.), 16.);
         check(pol(4.), 232.);
     } {
+        const Interpolation_Newton pol{{0, 1, 2, 3}, {1, 2, 9, 28}};
+        check(pol(1), 2);
+        check(pol(2), 9);
+    } {
         const Interpolation_Newton pol{
             {1910, 1920, 1930, 1940, 1950, 1960, 1970, 1980, 1990, 2000},
             {
