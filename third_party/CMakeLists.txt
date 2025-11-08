@@ -13,3 +13,11 @@ FetchContent_Declare(
         GIT_TAG main
 )
 FetchContent_MakeAvailable(System_of_equations)
+
+FetchContent_Declare(
+        Eigen
+        GIT_REPOSITORY    https://gitlab.com/libeigen/eigen.git
+        GIT_TAG           master
+)
+
+FetchContent_MakeAvailable(Eigen)
