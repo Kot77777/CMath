@@ -4,6 +4,7 @@
 #include <gtest/gtest.h>
 
 #include "cmath/boundary-value problem/progonka.hpp"
+#include "cmath/spline/spline.hpp"
 
 struct Callable {
     [[nodiscard]] double a(const double x) const {
@@ -28,14 +29,22 @@ struct Callable {
 
 TEST(progonka, progonka) {
     constexpr double pi = std::numbers::pi_v<double>;
+    constexpr double pi2 = pi * pi;
     const Callable k{};
     constexpr std::tuple<double, double> state_begin{0., 0.};
-    constexpr std::tuple<double, double> state_end{pi, pi * pi};
+    constexpr std::tuple<double, double> state_end{pi, pi2};
     constexpr std::size_t N = 1000;
     const auto [y_res, x_res] = progonka(k, state_begin, state_end, N);
+    const Spline sp{x_res, y_res};
+    constexpr double step = pi / N;
     std::ofstream res_data("progonka.csv");
     res_data << "x,y" << std::endl;
-    for (std::size_t i = 0; i < N; ++i) {
-        res_data << x_res[i] << "," << y_res[i] << std::endl;
+    for (double x = 0; x < pi; x += step) {
+        res_data << x << "," << sp(x) << std::endl;
     }
+    std::cout << "x = 0.5: " << sp(0.5) << '\n';
+    std::cout << "x = 1.0: " << sp(1) << '\n';
+    std::cout << "x = 1.5: " << sp(1.5) << '\n';
+    std::cout << "x = 2.0: " << sp(2) << '\n';
+    std::cout << "x = 2.5: " << sp(2.5) << '\n';
 }
