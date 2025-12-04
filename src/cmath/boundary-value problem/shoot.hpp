@@ -41,7 +41,7 @@ template<typename Callable>
     std::vector<typename RHS<Callable>::State> res = RK4(rhs, state0, endVec.t, step);
     double r = res.back().x(0) - endVec.x;
     double alpha = alpha0;
-    while (r > eps) {
+    while (std::abs(r) > eps) {
         alpha = alpha - r / res.back().x(2);
         const typename RHS<Callable>::State state{{startVec.x, alpha, 0., 1.}, startVec.t};
         res = RK4(rhs, state, endVec.t, step);
