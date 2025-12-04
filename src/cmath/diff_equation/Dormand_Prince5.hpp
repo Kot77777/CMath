@@ -27,7 +27,7 @@ template<typename Callable>
             state.x + step * (5179. / 57600 * k1 + 7571. / 16695 * k3 + 393. / 640 * k4 - 92097. / 339200 * k5 + 187. /
                               2100 * k6 + 1. / 40 * k7);
 
-    const double eps = (x_next_ - x_next).norm();
+    const typename Callable::Type eps = (x_next_ - x_next).norm();
 
     return {x_next, eps};
 }
@@ -37,20 +37,18 @@ template<typename Callable>
                                                         const typename Callable::Type endTime,
                                                         const typename Callable::Type step, const double tol) {
     std::vector<typename Callable::State> res{state0};
-    const typename Callable::Type step_min = 1e-10, step_max = 1.;
-    double step_next = step;
-    int i = 0;
+    const typename Callable::Type step_min = 1e-6, step_max = 1.;
+    typename Callable::Type step_next = step;
     while (res.back().t < endTime) {
         const auto [res_i, eps] = DP5_step(f, res.back(), step_next);
-        if (tol / 2 <= eps && eps <= tol || i > 100) {
+        if (eps <= tol) {
             res.push_back({res_i, res.back().t + step_next});
-            step_next = std::clamp(0.9 * step_next * std::pow(tol / eps, 0.2), step_min, step_max);
-            i = 0;
+            step_next = std::clamp(0.7 * step_next * std::pow(tol / eps, 0.2), step_min, step_max);
         }
         else {
-            step_next = std::clamp(0.9 * step_next * std::pow(tol / eps, 0.2), step_min, step_max);
+            step_next = std::clamp(0.7 * step_next * std::pow(tol / eps, 0.2), step_min, step_max);
         }
-        i += 1;
+
     }
     return res;
 }
