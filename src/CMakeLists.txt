@@ -1,7 +1,7 @@
 file(GLOB_RECURSE SOURCES cmath/*.cpp cmath/*.hpp)
 
-add_library(${PROJECT_NAME} STATIC ${SOURCES})
-target_link_libraries(${PROJECT_NAME} PUBLIC SLAE_project)
-target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_23)
+add_library(CMath STATIC ${SOURCES})
+target_link_libraries(CMath PUBLIC SLAE_project)
+target_compile_features(CMath PUBLIC cxx_std_23)
 
-target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+target_include_directories(CMath PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
