@@ -37,7 +37,7 @@ TEST(test, test) {
     const std::tuple<double, double> state_begin{e, e};
     const std::tuple<double, double> state_end{e2, 2 * e2};
     constexpr std::size_t N = 1e3;
-    constexpr double eps = 1e-6;
+    constexpr double eps = 1e-12;
 
     const auto [res, t] = quasi_linearization(k, y0, state_begin, state_end, N, eps);
     std::ofstream res_data("quasi_linearization.csv");

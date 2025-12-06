@@ -53,14 +53,14 @@ template<typename Callable, typename Callable_start>
 
     for (std::size_t i = 0; i < N; ++i) {
         y[i] = y[i] + dy[i];
-        tol += dy[i];
+        tol += dy[i] * dy[i];
     }
     while (std::sqrt(std::abs(tol)) > eps) {
         tol = 0;
         dy = progonka_for_ql(k, t, y, step);
         for (std::size_t i = 0; i < N; ++i) {
             y[i] = y[i] + dy[i];
-            tol += dy[i];
+            tol += dy[i] * dy[i];
         }
     }
 
