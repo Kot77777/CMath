@@ -43,10 +43,10 @@ template<typename Callable>
         const auto [res_i, eps] = DP5_step(f, res.back(), step_next);
         if (eps <= tol) {
             res.push_back({res_i, res.back().t + step_next});
-            step_next = std::clamp(0.7 * step_next * std::pow(tol / eps, 0.2), step_min, step_max);
+            step_next = std::clamp(0.9 * step_next * std::pow(tol / eps, 0.2), step_min, step_max);
         }
         else {
-            step_next = std::clamp(0.7 * step_next * std::pow(tol / eps, 0.2), step_min, step_max);
+            step_next = std::clamp(0.9 * step_next * std::pow(tol / eps, 0.2), step_min, step_max);
         }
 
     }

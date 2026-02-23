@@ -43,7 +43,7 @@ TEST(DP5, DP5) {
     const RHS rhs{0.012277471L};
     const RHS::State state0{{0.994, 0., 0., -2.00158510637908252240537862224}, 0.};
     const double T = 17.0652165601579625588917206249;
-    const double endTime = 5 * T, step = 1e-3;
+    const double endTime = 7 * T, step = 1e-5;
     constexpr double eps = 1e-14;
 
     const auto res = DP5(rhs, state0, endTime, step, eps);
