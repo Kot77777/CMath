@@ -39,7 +39,7 @@ TEST(diffusion_solver, Lax_Wendroff_template) {
     const double L = 20.;
     const double T = 20.;
     const double h = 0.5;
-    const double CFL = 1.;
+    const double CFL = 1;
 
     const Grid grid{L, T, h, CFL};
     constexpr Lax_Wendroff LW_template;
