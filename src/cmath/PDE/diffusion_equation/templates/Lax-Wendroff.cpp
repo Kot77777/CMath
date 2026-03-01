@@ -11,7 +11,7 @@ std::vector<double> Lax_Wendroff::operator()(const std::vector<double> &u, const
         res[i] = LW(u[i + 1], u[i], u[i - 1]);
     }
     res[N - 1] = LW(u[0], u[N - 1], u[N - 2]);
-    // res[0] = LW(u[1], u[0], u[N - 1]);
-    res[0] = res[N - 1];
+    res[0] = LW(u[1], u[0], u[N - 1]);
+    // res[0] = res[N - 1];
     return res;
 }
